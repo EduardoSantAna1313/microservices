@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: Config-Server
-  profiles:
-    active:
-      - native
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/EduardoSantAna1313/microservices/greeting-service-config
+          uri: https://github.com/EduardoSantAna1313/microservices/
+          default-label: main
+          search-paths:
+            - 'greeting-service-config/greeting-service*'
