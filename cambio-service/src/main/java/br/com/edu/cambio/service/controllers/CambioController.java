@@ -36,11 +36,14 @@ public class CambioController {
         }
 
         var conversionFactor = cambio.getConversionFactor();
-        var convetedValue = conversionFactor.multiply(amount);
+        var convertedValue = conversionFactor.multiply(amount);
 
         final var port = environment.getProperty("local.server.port");
         cambio.setEnvironment(port);
-        cambio.setConvertedValue(convetedValue.setScale(2, RoundingMode.CEILING));
+        cambio.setConvertedValue(convertedValue.setScale(2, RoundingMode.HALF_UP));
+
+        System.out.println(cambio);
+
         return cambio;
     }
 }

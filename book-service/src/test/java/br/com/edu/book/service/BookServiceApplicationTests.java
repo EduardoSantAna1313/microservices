@@ -1,10 +1,10 @@
-package br.com.edu.cambio.service;
+package br.com.edu.book.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CambioServiceApplicationTests {
+class BookServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

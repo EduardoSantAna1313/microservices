@@ -1,0 +1,10 @@
+echo "Building maven app"
+
+./mvnw package -Dmaven.test.skip
+# mvn package 
+
+# docker build --no-cache -t cambio-service .
+
+docker build -t cambio-service .
+
+bash -c docker_run.sh

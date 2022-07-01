@@ -1,31 +1,16 @@
-package br.com.edu.cambio.service.entities;
+package br.com.edu.book.service.response;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-
-@Entity(name = "cambio")
-public class Cambio implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Cambio {
     private Long id;
 
-    @Column(name ="from_currency", nullable = false, length = 3)
     private String from;
-
-    @Column(name ="to_currency", nullable = false, length = 3)
 
     private String to;
 
-    @Column(nullable = false)
+    private Double conversionFactor;
 
-    private BigDecimal conversionFactor;
+    private Double convertedValue;
 
-    @Transient
-    private BigDecimal convertedValue;
-
-    @Transient
     private String environment;
 
     public Long getId() {
@@ -52,19 +37,19 @@ public class Cambio implements Serializable {
         this.to = to;
     }
 
-    public BigDecimal getConversionFactor() {
+    public Double getConversionFactor() {
         return conversionFactor;
     }
 
-    public void setConversionFactor(BigDecimal conversionFactor) {
+    public void setConversionFactor(Double conversionFactor) {
         this.conversionFactor = conversionFactor;
     }
 
-    public BigDecimal getConvertedValue() {
+    public Double getConvertedValue() {
         return convertedValue;
     }
 
-    public void setConvertedValue(BigDecimal convertedValue) {
+    public void setConvertedValue(Double convertedValue) {
         this.convertedValue = convertedValue;
     }
 
@@ -83,7 +68,7 @@ public class Cambio implements Serializable {
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", conversionFactor=" + conversionFactor +
-                ", convertedValue=" + convertedValue +
+                ", convetedValue=" + convertedValue +
                 ", environment='" + environment + '\'' +
                 '}';
     }
