@@ -1,0 +1,11 @@
+echo "Building maven app"
+
+# ./mvnw package
+
+echo "Building docker"
+
+docker build --no-cache -t greeting-service .
+
+# docker build -t greeting-service .
+
+bash -c docker_run.sh

@@ -1,0 +1,9 @@
+echo "Building maven app"
+
+# ./mvnw package
+
+# docker build --no-cache -t config-server .
+
+docker build -t config-server .
+
+bash -c docker_run.sh
