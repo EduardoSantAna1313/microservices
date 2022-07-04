@@ -1,4 +1,6 @@
-/.idea/*
+/.idea/
+*.jar
+.mvn/
 
 # Compiled class file
 *.class
