@@ -1,6 +1,7 @@
 package br.com.edu.book.service.controllers;
 
 import br.com.edu.book.service.entities.Book;
+import br.com.edu.book.service.proxy.CambioProxy;
 import br.com.edu.book.service.repositories.BookRepository;
 import br.com.edu.book.service.response.Cambio;
 import org.springframework.core.env.Environment;
@@ -21,9 +22,12 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
-    public BookController(Environment environment, BookRepository bookRepository) {
+    private final CambioProxy cambioProxy;
+
+    public BookController(Environment environment, BookRepository bookRepository, CambioProxy cambioProxy) {
         this.environment = environment;
         this.bookRepository = bookRepository;
+        this.cambioProxy = cambioProxy;
     }
 
     @GetMapping("/{id}/{currency}")
@@ -32,17 +36,15 @@ public class BookController {
         final var book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book does not exists!"));
 
-        var params = Map.of(
-                "amount", book.getPrice().toString(),
-                "from", "USD",
-                "to", currency);
+        System.out.println("From: " + "USD");
+        System.out.println("To: " + currency);
 
-        var cambio =    new RestTemplate().getForObject("http://localhost:8000/cambio-service/{amount}/{from}/{to}", Cambio.class,
-                params);
+        final var cambio =  cambioProxy.getCambio(book.getPrice(), "USD", currency);
 
         System.out.println("Câmbio: " + cambio);
 
-        book.setEnvironment(environment.getProperty("local.server.port"));
+        book.setEnvironment("Book-service with feign: " + environment.getProperty("local.server.port")
+                + "\ncambio: " + cambio.getEnvironment());
         if (cambio.getConvertedValue() != null) {
             book.setPrice(BigDecimal.valueOf(cambio.getConvertedValue()));
         }
