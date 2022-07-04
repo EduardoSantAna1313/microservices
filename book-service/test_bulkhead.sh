@@ -1,0 +1,1 @@
+curl http://localhost:8765/book-service/bulkhead & curl http://localhost:8765/book-service/bulkhead & curl http://localhost:8765/book-service/bulkhead & curl http://localhost:8765/book-service/bulkhead
