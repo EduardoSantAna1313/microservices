@@ -3,7 +3,6 @@ package br.com.edu.book.service.controllers;
 import br.com.edu.book.service.entities.Book;
 import br.com.edu.book.service.proxy.CambioProxy;
 import br.com.edu.book.service.repositories.BookRepository;
-import br.com.edu.book.service.response.Cambio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.env.Environment;
@@ -11,10 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 @Tag(name = "Book endpoint")
 @RestController

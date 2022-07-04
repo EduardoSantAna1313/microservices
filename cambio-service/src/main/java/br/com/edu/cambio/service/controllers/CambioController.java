@@ -27,7 +27,7 @@ public class CambioController {
         this.cambioRepository = cambioRepository;
     }
 
-    @Operation(description = "Get cambio between currencies")
+    @Operation(summary = "Get cambio between currencies")
     @GetMapping("/{amount}/{from}/{to}")
     public Cambio getCambio(@PathVariable("amount") BigDecimal amount,
                             @PathVariable("from") String from,

@@ -27,3 +27,7 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/cambio_db
     user: postgres
     password: postgres066252
+springdoc:
+  show-actuator: false
+  api-docs:
+    path: cambio-service/v3/api-docs
