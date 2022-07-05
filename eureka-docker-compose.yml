@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+
+# ************ SERVERS ************
+  naming-server:
+    image: naming-server
+    build:
+      context: naming-server
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - microservice-network
+
+  api-gateway:
+    image: api-gateway
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+    ports:
+      - 8765:8765
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+volumes:
+  app-volume: #

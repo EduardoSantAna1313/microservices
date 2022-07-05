@@ -1,0 +1,77 @@
+version: '3.4'
+services:
+
+# ************ DATABASES ************
+  book-db:
+    image: postgres
+    restart: "always"
+    environment:
+        POSTGRES_PASSWORD: postgres066252
+        POSTGRES_USER: postgres
+        POSTGRES_DB: bookdb
+    ports:
+      - "5434:5432"
+    #volumes:
+    #  - app-volumne:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+  cambio-db:
+    image: postgres
+    restart: "always"
+    environment:
+        POSTGRES_PASSWORD: postgres066252
+        POSTGRES_USER: postgres
+        POSTGRES_DB: cambiodb
+    ports:
+      - "5435:5432"
+    #volumes:
+    #  - app-volumne:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+# ************ SERVICES ************
+# ************ Book service ************
+  naming-service:
+    image: naming-service:latest
+    build:
+      context: naming-server
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - microservice-network
+
+  api-gateway:
+    image: api-gateway:latest
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - 8765:8765
+    networks:
+      - microservice-network
+
+  cambio-service:
+    image: cambio-service:latest
+    build:
+      context: cambio-service
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - microservice-network
+
+  book-service:
+    image: book-service:latest
+    build:
+      context: book-service
+      dockerfile: Dockerfile
+    ports:
+      - 8100:8100
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+volumes:
+  app-volumne: #

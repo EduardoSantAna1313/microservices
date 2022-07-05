@@ -1,0 +1,105 @@
+version: '3.4'
+services:
+# ************ ZIPKIN ************
+#  zipkin-server:
+#    image:
+#      openzipkin/zipkin:2.23.2
+#    ports:
+#      - 9411:9411
+#    networks:
+#      - microservice-network
+# ************ DATABASES ************
+  book-db: 
+    image: postgres
+    restart: "always"
+    environment:
+        POSTGRES_PASSWORD: postgres066252
+        POSTGRES_USER: postgres
+        POSTGRES_DB: bookdb
+    ports:
+      - "5434:5432"
+    #volumes:
+    #  - app-volumne:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+  cambio-db: 
+    image: postgres
+    restart: "always"
+    environment:
+        POSTGRES_PASSWORD: postgres066252
+        POSTGRES_USER: postgres
+        POSTGRES_DB: cambiodb
+    ports:
+      - "5435:5432"
+    expose:
+      - 5435
+    #volumes:
+    #  - app-volumne:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+
+# ************ SERVERS ************
+  naming-server:
+    image: naming-server:latest
+    build:
+      context: naming-server
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - microservice-network
+
+  api-gateway:
+    image: api-gateway:latest
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+#      SPRING.ZIPKIN.BASEURL: http://zipking-server:9411/
+    ports:
+      - 8765:8765
+    networks:
+      - microservice-network
+
+  cambio-service:
+    image: cambio-service:latest
+    build:
+      context: cambio-service
+      dockerfile: Dockerfile
+    depends_on:
+      - cambio-db
+      - naming-server
+    ports:
+      - 8000:8000
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+      - spring.datasource.url=jdbc:postgresql://cambio-db:5432/cambiodb
+      - spring.flyway.url=jdbc:postgresql://cambio-db:5432/cambiodb
+    networks:
+      - microservice-network
+
+  book-service:
+    image: book-service:latest
+    build:
+      context: book-service
+      dockerfile: Dockerfile
+    depends_on:
+      - book-db
+      - naming-server
+    ports:
+      - 8100:8100
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+      - spring.datasource.url=jdbc:postgresql://book-db:5432/bookdb
+      - spring.flyway.url=jdbc:postgresql://book-db:5432/bookdb
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+volumes:
+  app-volume: #
