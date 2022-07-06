@@ -27,6 +27,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/cambio_db
     user: postgres
     password: postgres066252
+  sleuth:
+    sampler:
+      probability: 1.0
 springdoc:
   show-actuator: false
   api-docs:

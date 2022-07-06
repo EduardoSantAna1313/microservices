@@ -5,6 +5,8 @@ import br.com.edu.book.service.proxy.CambioProxy;
 import br.com.edu.book.service.repositories.BookRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping("/book-service")
 public class BookController {
+
+    private final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     private final Environment environment;
 
@@ -36,13 +40,9 @@ public class BookController {
 
         final var book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book does not exists!"));
-
-        System.out.println("From: " + "USD");
-        System.out.println("To: " + currency);
+        logger.info("Chamando bookController: " + id + " currency: " + currency);
 
         final var cambio =  cambioProxy.getCambio(book.getPrice(), "USD", currency);
-
-        System.out.println("Câmbio: " + cambio);
 
         book.setEnvironment("Book-service with feign: " + environment.getProperty("local.server.port")
                 + "\ncambio: " + cambio.getEnvironment());
