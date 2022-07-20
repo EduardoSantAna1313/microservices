@@ -1,18 +1,18 @@
 package br.com.edu.book.service.proxy;
 
-import br.com.edu.book.service.response.Cambio;
+import java.math.BigDecimal;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.math.BigDecimal;
+import br.com.edu.book.service.response.Cambio;
 
-@FeignClient(name= "cambio-service")
+@FeignClient(name = "cambio-service")
 public interface CambioProxy {
 
-    @GetMapping("/cambio-service/{amount}/{from}/{to}")
-    public Cambio getCambio(@PathVariable("amount") BigDecimal amount,
-                            @PathVariable("from") String from,
-                            @PathVariable("to") String to);
+	@GetMapping("/cambio-service/{amount}/{from}/{to}")
+	public Cambio getCambio(@PathVariable("amount") final BigDecimal amount, @PathVariable("from") final String from,
+			@PathVariable("to") final String to);
 
 }

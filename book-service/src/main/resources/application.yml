@@ -1,5 +1,8 @@
 server:
   port: 8100
+  error:
+    include-message: always
+    include-exception: false
 eureka:
   client:
     service-url:

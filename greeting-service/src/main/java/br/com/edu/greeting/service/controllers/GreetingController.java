@@ -1,36 +1,35 @@
 package br.com.edu.greeting.service.controllers;
 
-import br.com.edu.greeting.service.configuration.GreetingConfiguration;
-import br.com.edu.greeting.service.services.Greeting;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.atomic.AtomicLong;
+import br.com.edu.greeting.service.configuration.GreetingConfiguration;
+import br.com.edu.greeting.service.services.Greeting;
 
 @RestController
 public class GreetingController {
 
-    private static final String template = "%s, %s!";
-    private final AtomicLong counter = new AtomicLong();
+	private static final String TEMPLATE = "%s, %s!";
 
-    private final GreetingConfiguration configuration;
+	private final AtomicLong counter = new AtomicLong();
 
-    public GreetingController(GreetingConfiguration configuration) {
-        this.configuration = configuration;
-    }
+	private final GreetingConfiguration configuration;
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(
-            @RequestParam(value="name",
-                    defaultValue = "") String name) {
+	public GreetingController(final GreetingConfiguration configuration) {
+		this.configuration = configuration;
+	}
 
-        if (name.isEmpty()) name = configuration.getDefaultValue();
+	@RequestMapping("/greeting")
+	public Greeting greeting(@RequestParam(value = "name", defaultValue = "") String name) {
 
-        return new Greeting(
-                counter.incrementAndGet(),
-                String.format(template, configuration.getGreeting(), name)
-        );
-    }
+		if (name.isEmpty()) {
+			name = configuration.getDefaultValue();
+		}
+
+		return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, configuration.getGreeting(), name));
+	}
 
 }

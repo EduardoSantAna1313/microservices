@@ -10,15 +10,17 @@ import org.springframework.stereotype.Component;
 public class GreetingConfiguration {
 
 	private String greeting;
+
 	private String defaultValue;
-	
-	public GreetingConfiguration() {}
+
+	public GreetingConfiguration() {
+	}
 
 	public String getGreeting() {
 		return greeting;
 	}
 
-	public void setGreeting(String greeting) {
+	public void setGreeting(final String greeting) {
 		this.greeting = greeting;
 	}
 
@@ -26,7 +28,7 @@ public class GreetingConfiguration {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(String defaultValue) {
+	public void setDefaultValue(final String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 }

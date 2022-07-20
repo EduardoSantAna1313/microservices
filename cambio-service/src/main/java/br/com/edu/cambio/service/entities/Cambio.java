@@ -1,90 +1,93 @@
 package br.com.edu.cambio.service.entities;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity(name = "cambio")
 public class Cambio implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	private static final long serialVersionUID = 1L;
 
-    @Column(name ="from_currency", nullable = false, length = 3)
-    private String from;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name ="to_currency", nullable = false, length = 3)
+	@Column(name = "from_currency", nullable = false, length = 3)
+	private String from;
 
-    private String to;
+	@Column(name = "to_currency", nullable = false, length = 3)
 
-    @Column(nullable = false)
+	private String to;
 
-    private BigDecimal conversionFactor;
+	@Column(nullable = false)
 
-    @Transient
-    private BigDecimal convertedValue;
+	private BigDecimal conversionFactor;
 
-    @Transient
-    private String environment;
+	@Transient
+	private BigDecimal convertedValue;
 
-    public Long getId() {
-        return id;
-    }
+	@Transient
+	private String environment;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getFrom() {
-        return from;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public String getTo() {
-        return to;
-    }
+	public void setFrom(final String from) {
+		this.from = from;
+	}
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+	public String getTo() {
+		return to;
+	}
 
-    public BigDecimal getConversionFactor() {
-        return conversionFactor;
-    }
+	public void setTo(final String to) {
+		this.to = to;
+	}
 
-    public void setConversionFactor(BigDecimal conversionFactor) {
-        this.conversionFactor = conversionFactor;
-    }
+	public BigDecimal getConversionFactor() {
+		return conversionFactor;
+	}
 
-    public BigDecimal getConvertedValue() {
-        return convertedValue;
-    }
+	public void setConversionFactor(final BigDecimal conversionFactor) {
+		this.conversionFactor = conversionFactor;
+	}
 
-    public void setConvertedValue(BigDecimal convertedValue) {
-        this.convertedValue = convertedValue;
-    }
+	public BigDecimal getConvertedValue() {
+		return convertedValue;
+	}
 
-    public String getEnvironment() {
-        return environment;
-    }
+	public void setConvertedValue(final BigDecimal convertedValue) {
+		this.convertedValue = convertedValue;
+	}
 
-    public void setEnvironment(String environment) {
-        this.environment = environment;
-    }
+	public String getEnvironment() {
+		return environment;
+	}
 
-    @Override
-    public String toString() {
-        return "Cambio{" +
-                "id=" + id +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", conversionFactor=" + conversionFactor +
-                ", convertedValue=" + convertedValue +
-                ", environment='" + environment + '\'' +
-                '}';
-    }
+	public void setEnvironment(final String environment) {
+		this.environment = environment;
+	}
+
+	@Override
+	public String toString() {
+		return "Cambio{" + "id=" + id + ", from='" + from + '\'' + ", to='" + to + '\'' + ", conversionFactor="
+				+ conversionFactor + ", convertedValue=" + convertedValue + ", environment='" + environment + '\''
+				+ '}';
+	}
 }

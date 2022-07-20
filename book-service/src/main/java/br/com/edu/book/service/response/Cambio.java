@@ -1,75 +1,70 @@
 package br.com.edu.book.service.response;
 
 public class Cambio {
-    private Long id;
 
-    private String from;
+	private Long id;
 
-    private String to;
+	private String from;
 
-    private Double conversionFactor;
+	private String to;
 
-    private Double convertedValue;
+	private Double conversionFactor;
 
-    private String environment;
+	private Double convertedValue;
 
-    public Long getId() {
-        return id;
-    }
+	private String environment;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getFrom() {
-        return from;
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public String getTo() {
-        return to;
-    }
+	public void setFrom(final String from) {
+		this.from = from;
+	}
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+	public String getTo() {
+		return to;
+	}
 
-    public Double getConversionFactor() {
-        return conversionFactor;
-    }
+	public void setTo(final String to) {
+		this.to = to;
+	}
 
-    public void setConversionFactor(Double conversionFactor) {
-        this.conversionFactor = conversionFactor;
-    }
+	public Double getConversionFactor() {
+		return conversionFactor;
+	}
 
-    public Double getConvertedValue() {
-        return convertedValue;
-    }
+	public void setConversionFactor(final Double conversionFactor) {
+		this.conversionFactor = conversionFactor;
+	}
 
-    public void setConvertedValue(Double convertedValue) {
-        this.convertedValue = convertedValue;
-    }
+	public Double getConvertedValue() {
+		return convertedValue;
+	}
 
-    public String getEnvironment() {
-        return environment;
-    }
+	public void setConvertedValue(final Double convertedValue) {
+		this.convertedValue = convertedValue;
+	}
 
-    public void setEnvironment(String environment) {
-        this.environment = environment;
-    }
+	public String getEnvironment() {
+		return environment;
+	}
 
-    @Override
-    public String toString() {
-        return "Cambio{" +
-                "id=" + id +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", conversionFactor=" + conversionFactor +
-                ", convetedValue=" + convertedValue +
-                ", environment='" + environment + '\'' +
-                '}';
-    }
+	public void setEnvironment(final String environment) {
+		this.environment = environment;
+	}
+
+	@Override
+	public String toString() {
+		return "Cambio{" + "id=" + id + ", from='" + from + '\'' + ", to='" + to + '\'' + ", conversionFactor="
+				+ conversionFactor + ", convetedValue=" + convertedValue + ", environment='" + environment + '\'' + '}';
+	}
 }
